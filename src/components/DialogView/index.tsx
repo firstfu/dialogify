@@ -57,17 +57,17 @@ export const DialogView = ({
   return (
     <Flex direction="column" h="100%" overflow="hidden">
       {/* Header */}
-      <Box p={3} borderBottom="1px solid" borderColor="gray.200">
-        <Flex justify="space-between" align="center" mb={2}>
-          <Heading size="sm">對話結果</Heading>
+      <Box p={4} borderBottom="1px solid" borderColor="gray.200">
+        <Flex justify="space-between" align="center" mb={3}>
+          <Heading size="md">對話結果</Heading>
           <Flex gap={2}>
             <Tooltip label="複製全部" placement="top" hasArrow>
               <IconButton
                 aria-label="Copy all"
                 icon={
                   <svg
-                    width="16"
-                    height="16"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -78,26 +78,26 @@ export const DialogView = ({
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                   </svg>
                 }
-                size="sm"
+                size="md"
                 onClick={handleCopyAll}
               />
             </Tooltip>
-            <Button size="sm" onClick={onClose}>
+            <Button size="md" onClick={onClose} fontSize="md">
               返回
             </Button>
           </Flex>
         </Flex>
         <Flex gap={2} overflowX="auto" pb={2}>
           {roles.map((role) => (
-            <Tag key={role} colorScheme="blue" size="sm">
-              <TagLabel>{role}</TagLabel>
+            <Tag key={role} colorScheme="blue" size="md">
+              <TagLabel fontSize="md">{role}</TagLabel>
             </Tag>
           ))}
         </Flex>
       </Box>
 
       {/* Content */}
-      <Box flex={1} overflowY="auto" p={3} ref={contentRef}>
+      <Box flex={1} overflowY="auto" p={4} ref={contentRef}>
         {messages.map((message, index) => (
           <MessageBubble
             key={index}
@@ -109,15 +109,16 @@ export const DialogView = ({
       </Box>
 
       {/* Footer */}
-      <Box p={3} borderTop="1px solid" borderColor="gray.200">
+      <Box p={4} borderTop="1px solid" borderColor="gray.200">
         <Button
-          size="sm"
+          size="md"
           width="100%"
           onClick={onRetry}
+          fontSize="md"
           leftIcon={
             <svg
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

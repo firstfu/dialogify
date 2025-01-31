@@ -1,67 +1,77 @@
 /* Markdown 內容的基本樣式 */
 .markdown-content {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.8;
   color: #2d3748;
 }
 
 /* 標題樣式 */
 .markdown-content h1 {
-  font-size: 1.8em;
+  font-size: 2em;
   margin: 1em 0 0.5em;
   font-weight: 600;
 }
 
 .markdown-content h2 {
-  font-size: 1.5em;
+  font-size: 1.7em;
   margin: 1em 0 0.5em;
   font-weight: 600;
 }
 
 .markdown-content h3 {
-  font-size: 1.3em;
+  font-size: 1.5em;
   margin: 1em 0 0.5em;
   font-weight: 600;
 }
 
 /* 段落樣式 */
 .markdown-content p {
-  margin: 0.8em 0;
+  margin: 1em 0;
+  font-size: 16px;
+  line-height: 1.8;
 }
 
 /* 列表樣式 */
 .markdown-content ul,
 .markdown-content ol {
-  margin: 0.5em 0;
-  padding-left: 1.5em;
+  margin: 0.8em 0;
+  padding-left: 2em;
+  font-size: 16px;
+  line-height: 1.8;
 }
 
 .markdown-content li {
-  margin: 0.3em 0;
+  margin: 0.5em 0;
 }
 
 /* 程式碼區塊樣式 */
 .markdown-content pre {
   background-color: #f7fafc;
-  padding: 1em;
-  border-radius: 4px;
+  padding: 1.2em;
+  border-radius: 6px;
   overflow-x: auto;
-  margin: 1em 0;
+  margin: 1.2em 0;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .markdown-content code {
   background-color: #f7fafc;
   padding: 0.2em 0.4em;
-  border-radius: 3px;
+  border-radius: 4px;
   font-family: monospace;
+  font-size: 15px;
 }
 
 /* 引用區塊樣式 */
 .markdown-content blockquote {
   border-left: 4px solid #e2e8f0;
-  margin: 1em 0;
-  padding-left: 1em;
+  margin: 1.2em 0;
+  padding: 0.8em 1.2em;
   color: #4a5568;
+  font-size: 16px;
+  line-height: 1.8;
+  background-color: #f8f9fa;
 }
 
 /* 表格樣式 */

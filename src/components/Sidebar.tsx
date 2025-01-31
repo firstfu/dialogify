@@ -196,7 +196,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   borderRadius="lg"
                   boxShadow="sm">
                   <Heading
-                    size="md"
+                    size="lg"
                     bgGradient="linear(to-r, blue.400, blue.600)"
                     bgClip="text">
                     Dialogify
@@ -226,8 +226,8 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   onClick={handleConvert}
                   isDisabled={isProcessing}
                   width="100%"
-                  height="60px"
-                  fontSize="lg"
+                  height="70px"
+                  fontSize="xl"
                   boxShadow="md"
                   _hover={{
                     transform: "translateY(-2px)",
@@ -250,7 +250,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                 {!isProcessing && (
                   <Text
                     color="gray.500"
-                    fontSize="sm"
+                    fontSize="md"
                     textAlign="center"
                     mt={2}>
                     點擊上方按鈕開始轉換對話內容

@@ -74,14 +74,14 @@ export const MessageBubble = ({ role, content, index }: MessageBubbleProps) => {
           borderBottom="1px solid"
           borderColor="gray.100"
           bg="gray.50">
-          <Text fontSize="sm" fontWeight="bold" color={getColorByRole(role)}>
+          <Text fontSize="md" fontWeight="bold" color={getColorByRole(role)}>
             {role}
           </Text>
         </Box>
 
         {/* 對話內容 */}
         <Box px={4} py={3} position="relative">
-          <Box className="markdown-content">
+          <Box className="markdown-content" fontSize="lg" lineHeight="1.8">
             <ReactMarkdown>{content}</ReactMarkdown>
           </Box>
 

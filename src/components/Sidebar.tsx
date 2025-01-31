@@ -166,11 +166,13 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         right={0}
         width="400px"
         height="100vh"
-        bgGradient="linear(to-b, white, blue.50)"
-        boxShadow="xl"
+        bgGradient="linear(to-b, blue.50, white, blue.50)"
+        boxShadow="2xl"
         zIndex={999999}
         transform={`translateX(${_isOpen ? "0" : "100%"})`}
-        transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+        transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+        backdropFilter="blur(10px)"
+        opacity={0.98}
         borderLeft="1px solid"
         borderColor="gray.100">
         {dialogResult ? (
@@ -181,12 +183,12 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
             onRetry={handleRetry}
           />
         ) : (
-          <Container p={6} height="100%">
+          <Container p={8} height="100%" maxW="container.sm">
             <Flex direction="column" gap={6} height="100%">
               <Box
                 as={motion.div}
                 initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: "0.5s" }}>
                 <Flex
                   justify="space-between"
@@ -194,16 +196,20 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   bg="white"
                   p={4}
                   borderRadius="lg"
-                  boxShadow="sm">
+                  boxShadow="md"
+                  _hover={{ boxShadow: "lg", transform: "translateY(-2px)" }}
+                  transition="all 0.3s ease">
                   <Heading
                     size="lg"
-                    bgGradient="linear(to-r, blue.400, blue.600)"
-                    bgClip="text">
+                    bgGradient="linear(to-r, blue.500, purple.500)"
+                    bgClip="text"
+                    letterSpacing="tight">
                     Dialogify
                   </Heading>
                   <Box
                     as={motion.div}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.1, rotate: 180 }}
+                    transition={{ duration: 0.3 }}
                     whileTap={{ scale: 0.95 }}>
                     <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
                   </Box>
@@ -218,7 +224,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                 gap={4}
                 as={motion.div}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: "0.2s" }}>
                 <Button
                   size="lg"
@@ -228,16 +234,18 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   width="100%"
                   height="70px"
                   fontSize="xl"
-                  boxShadow="md"
+                  boxShadow="lg"
+                  bgGradient="linear(to-r, blue.400, blue.600)"
                   _hover={{
                     transform: "translateY(-2px)",
-                    boxShadow: "lg"
+                    boxShadow: "2xl",
+                    bgGradient: "linear(to-r, blue.500, blue.700)"
                   }}
                   _active={{
                     transform: "translateY(0)",
-                    boxShadow: "sm"
+                    boxShadow: "md"
                   }}
-                  transition="all 0.2s">
+                  transition="all 0.3s ease-in-out">
                   {isProcessing ? (
                     <Flex align="center" justify="center">
                       <Spinner size="sm" mr={3} />
@@ -250,9 +258,14 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                 {!isProcessing && (
                   <Text
                     color="gray.500"
-                    fontSize="md"
+                    fontSize="sm"
                     textAlign="center"
-                    mt={2}>
+                    mt={4}
+                    fontWeight="medium"
+                    letterSpacing="wide"
+                    as={motion.p}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}>
                     點擊上方按鈕開始轉換對話內容
                   </Text>
                 )}

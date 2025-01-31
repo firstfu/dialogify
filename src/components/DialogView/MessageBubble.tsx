@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { useState } from "react"
+import ReactMarkdown from "react-markdown"
 
 const MotionBox = motion(Box)
 
@@ -80,7 +81,9 @@ export const MessageBubble = ({ role, content, index }: MessageBubbleProps) => {
 
         {/* 對話內容 */}
         <Box px={4} py={3} position="relative">
-          <Text whiteSpace="pre-wrap">{content}</Text>
+          <Box className="markdown-content">
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </Box>
 
           {/* 複製按鈕 */}
           <Tooltip

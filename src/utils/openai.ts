@@ -43,7 +43,11 @@ export const convertToDialog = async (content: string) => {
       response_format: { type: "json_object" }
     })
 
-    return JSON.parse(response.choices[0].message.content)
+    let rs = JSON.parse(response.choices[0].message.content)
+
+    console.log("生成結果 rs:", rs)
+
+    return rs
   } catch (error) {
     console.error("Error converting content to dialog:", error)
     throw error

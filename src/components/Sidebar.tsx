@@ -33,7 +33,8 @@ const storage = new Storage()
 export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   const { isOpen: _isOpen, onClose: _onClose } = useDisclosure({
     isOpen,
-    onClose
+    onClose,
+    defaultIsOpen: isOpen
   })
   const [isProcessing, setIsProcessing] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
@@ -60,6 +61,16 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
     })
   }, [])
 
+  // 轉換對話格式
+  const transformDialogues = (
+    dialogues: Record<string, string>[]
+  ): DialogMessage[] => {
+    return dialogues.map((dialog) => {
+      const [role, content] = Object.entries(dialog)[0]
+      return { role, content: content as string }
+    })
+  }
+
   const handleConvert = async () => {
     if (!apiKey) {
       toast({
@@ -75,17 +86,49 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
     setDialogResult(null)
 
     try {
-      // 直接使用當前頁面的內容
-      const response = await chrome.runtime.sendMessage({
-        type: "CONVERT_CONTENT"
+      console.log("開始提取內容...")
+      // 直接向 content script 請求提取內容
+      const extractResponse = await chrome.runtime.sendMessage({
+        type: "EXTRACT_CONTENT"
       })
 
-      if (response.error) {
-        throw new Error(response.error)
+      console.log("提取內容回應:", extractResponse)
+      if (extractResponse.error) {
+        throw new Error(extractResponse.error)
       }
 
-      // 處理對話結果
-      setDialogResult(response)
+      // 如果 extractResponse 已經是轉換後的結果，直接使用
+      if (extractResponse.roles && extractResponse.dialogues) {
+        console.log("收到已轉換的對話結果")
+        const transformedResult = {
+          roles: extractResponse.roles,
+          dialogues: transformDialogues(extractResponse.dialogues)
+        }
+        console.log("轉換後的對話結果:", transformedResult)
+        setDialogResult(transformedResult)
+      } else {
+        console.log("開始轉換內容...")
+        // 使用提取的內容進行轉換
+        const response = await chrome.runtime.sendMessage({
+          type: "CONVERT_CONTENT",
+          content: extractResponse
+        })
+
+        console.log("轉換內容回應:", response)
+        if (response.error) {
+          throw new Error(response.error)
+        }
+
+        // 處理對話結果
+        const transformedResult = {
+          roles: response.roles,
+          dialogues: transformDialogues(response.dialogues)
+        }
+        console.log("轉換後的對話結果:", transformedResult)
+        setDialogResult(transformedResult)
+      }
+
+      console.log("設置對話結果完成")
 
       toast({
         title: "轉換成功",
@@ -93,6 +136,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         duration: 3000
       })
     } catch (error) {
+      console.error("轉換過程錯誤:", error)
       toast({
         title: "轉換失敗",
         description: error.message,

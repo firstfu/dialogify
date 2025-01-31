@@ -34,8 +34,9 @@ export const MessageBubble = ({ role, content, index }: MessageBubbleProps) => {
 
   // 根據角色取得顏色
   const getColorByRole = (role: string) => {
+    if (!role) return roleColors.default
     const normalizedRole = Object.keys(roleColors).find((key) =>
-      role.includes(key)
+      role.toLowerCase().includes(key.toLowerCase())
     )
     return roleColors[normalizedRole] || roleColors.default
   }

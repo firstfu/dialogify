@@ -4,10 +4,13 @@ import {
   Container,
   Flex,
   Heading,
+  Icon,
   Spinner,
+  Text,
   useDisclosure,
   useToast
 } from "@chakra-ui/react"
+import { motion } from "framer-motion"
 import type { FC } from "react"
 import { useEffect, useState } from "react"
 
@@ -163,13 +166,13 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         right={0}
         width="400px"
         height="100vh"
-        bg="white"
-        boxShadow="lg"
+        bgGradient="linear(to-b, white, blue.50)"
+        boxShadow="xl"
         zIndex={999999}
         transform={`translateX(${_isOpen ? "0" : "100%"})`}
-        transition="transform 0.3s ease-in-out"
+        transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
         borderLeft="1px solid"
-        borderColor="gray.200">
+        borderColor="gray.100">
         {dialogResult ? (
           <DialogView
             roles={dialogResult.roles}
@@ -178,21 +181,82 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
             onRetry={handleRetry}
           />
         ) : (
-          <Container p={4} height="100%">
-            <Flex direction="column" gap={4} height="100%">
-              <Flex justify="space-between" align="center">
-                <Heading size="md">Dialogify</Heading>
-                <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
-              </Flex>
+          <Container p={6} height="100%">
+            <Flex direction="column" gap={6} height="100%">
+              <Box
+                as={motion.div}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: "0.5s" }}>
+                <Flex
+                  justify="space-between"
+                  align="center"
+                  bg="white"
+                  p={4}
+                  borderRadius="lg"
+                  boxShadow="sm">
+                  <Heading
+                    size="md"
+                    bgGradient="linear(to-r, blue.400, blue.600)"
+                    bgClip="text">
+                    Dialogify
+                  </Heading>
+                  <Box
+                    as={motion.div}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}>
+                    <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+                  </Box>
+                </Flex>
+              </Box>
 
-              <Button
-                colorScheme="blue"
-                onClick={handleConvert}
-                isDisabled={isProcessing}
-                width="100%">
-                {isProcessing ? <Spinner size="sm" mr={2} /> : null}
-                {isProcessing ? "轉換中..." : "開始轉換"}
-              </Button>
+              <Flex
+                direction="column"
+                flex={1}
+                justify="center"
+                align="center"
+                gap={4}
+                as={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: "0.2s" }}>
+                <Button
+                  size="lg"
+                  colorScheme="blue"
+                  onClick={handleConvert}
+                  isDisabled={isProcessing}
+                  width="100%"
+                  height="60px"
+                  fontSize="lg"
+                  boxShadow="md"
+                  _hover={{
+                    transform: "translateY(-2px)",
+                    boxShadow: "lg"
+                  }}
+                  _active={{
+                    transform: "translateY(0)",
+                    boxShadow: "sm"
+                  }}
+                  transition="all 0.2s">
+                  {isProcessing ? (
+                    <Flex align="center" justify="center">
+                      <Spinner size="sm" mr={3} />
+                      <Text>轉換進行中...</Text>
+                    </Flex>
+                  ) : (
+                    "開始轉換對話"
+                  )}
+                </Button>
+                {!isProcessing && (
+                  <Text
+                    color="gray.500"
+                    fontSize="sm"
+                    textAlign="center"
+                    mt={2}>
+                    點擊上方按鈕開始轉換對話內容
+                  </Text>
+                )}
+              </Flex>
             </Flex>
           </Container>
         )}

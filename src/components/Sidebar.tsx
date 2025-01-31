@@ -5,11 +5,14 @@ import {
   Flex,
   Heading,
   Icon,
+  Image,
   Spinner,
   Text,
   useDisclosure,
-  useToast
+  useToast,
+  VStack
 } from "@chakra-ui/react"
+import heroIllustration from "data-text:~assets/hero-illustration.svg"
 import { motion } from "framer-motion"
 import type { FC } from "react"
 import { useEffect, useState } from "react"
@@ -32,6 +35,12 @@ interface DialogResult {
 }
 
 const storage = new Storage()
+
+const settingsIconVariants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: { scale: 1.1, rotate: 180 },
+  tap: { scale: 0.95 }
+}
 
 export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   const { isOpen: _isOpen, onClose: _onClose } = useDisclosure({
@@ -208,9 +217,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   </Heading>
                   <Box
                     as={motion.div}
-                    whileHover={{ scale: 1.1, rotate: 180 }}
-                    transition={{ duration: 0.3 }}
-                    whileTap={{ scale: 0.95 }}>
+                    variants={settingsIconVariants}
+                    initial="initial"
+                    whileHover="hover"
+                    whileTap="tap">
                     <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
                   </Box>
                 </Flex>
@@ -226,6 +236,28 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: "0.2s" }}>
+                <Box position="relative" width="200px" height="200px" mb={4}>
+                  <div dangerouslySetInnerHTML={{ __html: heroIllustration }} />
+                </Box>
+
+                <VStack spacing={3} mb={6}>
+                  <Text
+                    fontSize="lg"
+                    fontWeight="bold"
+                    textAlign="center"
+                    bgGradient="linear(to-r, blue.500, purple.500)"
+                    bgClip="text">
+                    智能對話轉換器
+                  </Text>
+                  <Text
+                    fontSize="sm"
+                    color="gray.600"
+                    textAlign="center"
+                    maxW="280px">
+                    輕鬆將網頁內容轉換成生動的對話形式， 讓閱讀更有趣、更易理解
+                  </Text>
+                </VStack>
+
                 <Button
                   size="lg"
                   colorScheme="blue"
@@ -235,11 +267,11 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                   height="70px"
                   fontSize="xl"
                   boxShadow="lg"
-                  bgGradient="linear(to-r, blue.400, blue.600)"
+                  bgGradient="linear(to-r, blue.400, purple.500)"
                   _hover={{
                     transform: "translateY(-2px)",
                     boxShadow: "2xl",
-                    bgGradient: "linear(to-r, blue.500, blue.700)"
+                    bgGradient: "linear(to-r, blue.500, purple.600)"
                   }}
                   _active={{
                     transform: "translateY(0)",
@@ -255,6 +287,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
                     "開始轉換對話"
                   )}
                 </Button>
+
                 {!isProcessing && (
                   <Text
                     color="gray.500"

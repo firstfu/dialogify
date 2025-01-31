@@ -51,6 +51,12 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: 4.1.1
         version: 4.1.1(@vue/compiler-sfc@3.3.4)(prettier@3.2.4)
+      '@parcel/optimizer-data-url':
+        specifier: 2.9.3
+        version: 2.9.3(@parcel/core@2.9.3)
+      '@parcel/transformer-inline-string':
+        specifier: 2.9.3
+        version: 2.9.3(@parcel/core@2.9.3)
       '@types/chrome':
         specifier: 0.0.258
         version: 0.0.258
@@ -5492,7 +5498,7 @@ snapshots:
       '@parcel/fs-search': 2.9.3
       '@parcel/types': 2.9.3(@parcel/core@2.9.3)
       '@parcel/utils': 2.9.3
-      '@parcel/watcher': 2.2.0
+      '@parcel/watcher': 2.5.1
       '@parcel/workers': 2.9.3(@parcel/core@2.9.3)
 
   '@parcel/graph@2.9.3':
@@ -5634,7 +5640,7 @@ snapshots:
       '@parcel/types': 2.9.3(@parcel/core@2.9.3)
       '@parcel/utils': 2.9.3
       '@parcel/workers': 2.9.3(@parcel/core@2.9.3)
-      semver: 7.5.4
+      semver: 7.7.0
 
   '@parcel/packager-css@2.9.3(@parcel/core@2.9.3)':
     dependencies:
@@ -6084,7 +6090,6 @@ snapshots:
       '@parcel/watcher-win32-arm64': 2.5.1
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
-    optional: true
 
   '@parcel/workers@2.8.3(@parcel/core@2.9.3)':
     dependencies:

@@ -6,6 +6,8 @@
     "paths": {
       "~*": ["./src/*"]
     },
-    "baseUrl": "."
+    "baseUrl": ".",
+    "typeRoots": ["node_modules/@types", "node_modules/plasmo/types"],
+    "types": ["node", "chrome"]
   }
 }

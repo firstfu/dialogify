@@ -18,10 +18,11 @@ export const getOpenAIInstance = async () => {
 
 export const convertToDialog = async (content: string) => {
   const openai = await getOpenAIInstance()
+  const model = (await storage.get("openai_model")) || "gpt-4"
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model,
       messages: [
         {
           role: "system",

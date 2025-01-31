@@ -14,6 +14,8 @@ import { Storage } from "@plasmohq/storage"
 
 import { ChakraProvider } from "~components/ChakraProvider"
 import { DialogView, type DialogMessage } from "~components/DialogView"
+import { Settings } from "~components/Settings"
+import { SettingsIcon } from "~components/SettingsIcon"
 
 // 設定固定的 popup 尺寸
 const POPUP_WIDTH = "400px"
@@ -28,6 +30,7 @@ interface DialogResult {
 
 function IndexPopup() {
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [apiKey, setApiKey] = useState("")
   const [dialogResult, setDialogResult] = useState<DialogResult | null>(null)
   const toast = useToast()
@@ -48,6 +51,7 @@ function IndexPopup() {
         status: "error",
         duration: 3000
       })
+      setIsSettingsOpen(true)
       return
     }
 
@@ -113,41 +117,27 @@ function IndexPopup() {
           ) : (
             <Container p={4} height="100%">
               <Flex direction="column" gap={4} height="100%">
-                <Heading size="md">Dialogify</Heading>
+                <Flex justify="space-between" align="center">
+                  <Heading size="md">Dialogify</Heading>
+                  <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+                </Flex>
 
-                {!apiKey ? (
-                  <Box>
-                    <Text mb={2}>請先設定 OpenAI API Key：</Text>
-                    <input
-                      type="password"
-                      value={apiKey}
-                      onChange={(e) => {
-                        const key = e.target.value
-                        setApiKey(key)
-                        storage.set("openai_api_key", key)
-                      }}
-                      style={{
-                        width: "100%",
-                        padding: "8px",
-                        marginBottom: "8px",
-                        border: "1px solid #E2E8F0",
-                        borderRadius: "4px"
-                      }}
-                    />
-                  </Box>
-                ) : (
-                  <Button
-                    colorScheme="blue"
-                    onClick={handleConvert}
-                    isDisabled={isProcessing}
-                    width="100%">
-                    {isProcessing ? <Spinner size="sm" mr={2} /> : null}
-                    {isProcessing ? "轉換中..." : "開始轉換"}
-                  </Button>
-                )}
+                <Button
+                  colorScheme="blue"
+                  onClick={handleConvert}
+                  isDisabled={isProcessing}
+                  width="100%">
+                  {isProcessing ? <Spinner size="sm" mr={2} /> : null}
+                  {isProcessing ? "轉換中..." : "開始轉換"}
+                </Button>
               </Flex>
             </Container>
           )}
+
+          <Settings
+            isOpen={isSettingsOpen}
+            onClose={() => setIsSettingsOpen(false)}
+          />
         </Box>
       </ChakraProvider>
     </div>

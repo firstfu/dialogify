@@ -21,7 +21,7 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2(react@18.2.0)
       '@plasmohq/storage':
-        specifier: ^1.13.0
+        specifier: 1.13.0
         version: 1.13.0(react@18.2.0)
       framer-motion:
         specifier: ^6
@@ -38,6 +38,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-icons:
+        specifier: ^5.4.0
+        version: 5.4.0(react@18.2.0)
     devDependencies:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: 4.1.1
@@ -3433,6 +3436,11 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  react-icons@5.4.0:
+    resolution: {integrity: sha512-7eltJxgVt7X64oHh6wSWNwwbKTCtMfK35hcjvJS0yxEAhPM8oUKdS3+kqaW1vicIltw+kR2unHaa12S9pPALoQ==}
+    peerDependencies:
+      react: '*'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -7927,6 +7935,10 @@ snapshots:
       use-sidecar: 1.1.3(@types/react@18.2.48)(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.2.48
+
+  react-icons@5.4.0(react@18.2.0):
+    dependencies:
+      react: 18.2.0
 
   react-is@16.13.1: {}
 

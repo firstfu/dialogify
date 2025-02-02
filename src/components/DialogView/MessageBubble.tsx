@@ -1,25 +1,13 @@
-import {
-  Box,
-  Flex,
-  IconButton,
-  Text,
-  Tooltip,
-  useClipboard,
-  useToast
-} from "@chakra-ui/react"
-import { motion } from "framer-motion"
 import { useState } from "react"
 import ReactMarkdown from "react-markdown"
 
-const MotionBox = motion(Box)
-
-// 角色顏色映射
-const roleColors = {
-  教授: "purple.500",
-  學生: "green.500",
-  記者: "blue.500",
-  專家: "red.500",
-  default: "gray.500"
+// 角色類名映射
+const roleClassNames = {
+  教授: "widget-role-professor",
+  學生: "widget-role-student",
+  記者: "widget-role-reporter",
+  專家: "widget-role-expert",
+  default: "widget-role-default"
 }
 
 interface MessageBubbleProps {
@@ -29,95 +17,68 @@ interface MessageBubbleProps {
 }
 
 export const MessageBubble = ({ role, content, index }: MessageBubbleProps) => {
-  const [isHovered, setIsHovered] = useState(false)
-  const { hasCopied, onCopy } = useClipboard(content)
-  const toast = useToast()
+  const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
 
-  // 根據角色取得顏色
-  const getColorByRole = (role: string) => {
-    if (!role) return roleColors.default
-    const normalizedRole = Object.keys(roleColors).find((key) =>
+  // 根據角色取得類名
+  const getRoleClassName = (role: string) => {
+    if (!role) return roleClassNames.default
+    const normalizedRole = Object.keys(roleClassNames).find((key) =>
       role.toLowerCase().includes(key.toLowerCase())
     )
-    return roleColors[normalizedRole] || roleColors.default
+    return roleClassNames[normalizedRole] || roleClassNames.default
   }
 
-  const handleCopy = () => {
-    onCopy()
-    toast({
-      title: "已複製到剪貼簿",
-      status: "success",
-      duration: 2000
-    })
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(content)
+      setShowCopiedTooltip(true)
+      setTimeout(() => setShowCopiedTooltip(false), 2000)
+    } catch (err) {
+      console.error("複製失敗:", err)
+    }
   }
 
   return (
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
-      mb={3}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
-      <Flex
-        direction="column"
-        bg="white"
-        borderRadius="lg"
-        boxShadow="sm"
-        position="relative"
-        borderLeft="4px solid"
-        borderLeftColor={getColorByRole(role)}>
+    <div
+      className="widget-message-bubble"
+      style={{
+        // 為每個消息添加延遲動畫
+        animationDelay: `${index * 0.1}s`
+      }}>
+      <div className={`widget-message-bubble-inner ${getRoleClassName(role)}`}>
         {/* 角色名稱 */}
-        <Box
-          px={4}
-          py={2}
-          borderBottom="1px solid"
-          borderColor="gray.100"
-          bg="gray.50">
-          <Text fontSize="md" fontWeight="bold" color={getColorByRole(role)}>
+        <div className="widget-message-header">
+          <span className={`widget-message-role ${getRoleClassName(role)}`}>
             {role}
-          </Text>
-        </Box>
+          </span>
+        </div>
 
         {/* 對話內容 */}
-        <Box px={4} py={3} position="relative">
-          <Box className="markdown-content" fontSize="lg" lineHeight="1.8">
+        <div className="widget-message-content">
+          <div className="widget-markdown-content">
             <ReactMarkdown>{content}</ReactMarkdown>
-          </Box>
+          </div>
 
           {/* 複製按鈕 */}
-          <Tooltip
-            label={hasCopied ? "已複製！" : "複製內容"}
-            placement="top"
-            hasArrow>
-            <IconButton
-              aria-label="Copy content"
-              icon={
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-              }
-              size="sm"
-              variant="ghost"
-              position="absolute"
-              top={2}
-              right={2}
-              opacity={isHovered ? 1 : 0}
-              transition="opacity 0.2s"
-              onClick={handleCopy}
-            />
-          </Tooltip>
-        </Box>
-      </Flex>
-    </MotionBox>
+          <button
+            className="widget-icon-button widget-message-copy widget-tooltip"
+            onClick={handleCopy}
+            data-tooltip={showCopiedTooltip ? "已複製！" : "複製內容"}
+            aria-label="複製內容">
+            <svg
+              className="widget-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

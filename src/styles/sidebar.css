@@ -1,0 +1,217 @@
+/* 側邊欄基本樣式 */
+.widget-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.widget-sidebar--closed {
+  transform: translateX(100%);
+}
+
+/* 頁首容器 */
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.widget-header:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.widget-header__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* 主要內容區域 */
+.widget-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.widget-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* 插圖容器 */
+.widget-illustration-container {
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+}
+
+.widget-illustration {
+  width: 100%;
+  height: auto;
+}
+
+/* 按鈕樣式 */
+.widget-convert-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+}
+
+.widget-convert-button:hover {
+  background-color: #1d4ed8;
+}
+
+.widget-convert-button:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.widget-loading-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 動畫相關類 */
+.widget-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.widget-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 通用佈局類 */
+.widget-flex {
+  display: flex;
+}
+
+.widget-flex-col {
+  flex-direction: column;
+}
+
+.widget-flex-1 {
+  flex: 1;
+}
+
+.widget-items-center {
+  align-items: center;
+}
+
+.widget-justify-center {
+  justify-content: center;
+}
+
+.widget-justify-between {
+  justify-content: space-between;
+}
+
+.widget-gap-4 {
+  gap: 1rem;
+}
+
+.widget-text-center {
+  text-align: center;
+}
+
+/* 文字相關類 */
+.widget-text-lg {
+  font-size: 1.125rem;
+}
+
+.widget-text-sm {
+  font-size: 0.875rem;
+}
+
+.widget-text-gray {
+  color: #6b7280;
+}
+
+.widget-mt-4 {
+  margin-top: 1rem;
+}
+
+.widget-font-medium {
+  font-weight: 500;
+}
+
+.widget-letter-wide {
+  letter-spacing: 0.025em;
+}
+
+/* 設定按鈕樣式 */
+.widget-settings-button {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #4a5568;
+}
+
+.widget-settings-button:hover {
+  background: #edf2f7;
+  transform: scale(1.1) rotate(180deg);
+}
+
+.widget-settings-button:active {
+  transform: scale(0.95);
+}
+
+.widget-settings-button svg {
+  width: 20px;
+  height: 20px;
+}

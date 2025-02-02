@@ -1,19 +1,5 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Select,
-  VStack
-} from "@chakra-ui/react"
+import "../styles/settings.css"
+
 import { useEffect, useState } from "react"
 
 import { Storage } from "@plasmohq/storage"
@@ -108,43 +94,54 @@ export const Settings = ({ isOpen, onClose }: SettingsProps) => {
     onClose()
   }
 
+  if (!isOpen) return null
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>設定</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <VStack spacing={4}>
-            <FormControl>
-              <FormLabel>OpenAI API Key</FormLabel>
-              <Input
-                type="password"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                placeholder="sk-..."
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>選擇模型</FormLabel>
-              <Select
-                value={selectedModel}
-                onChange={(e) => setSelectedModel(e.target.value)}>
-                {OPENAI_MODELS.map((model) => (
-                  <option key={model.value} value={model.value}>
-                    {model.label}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </VStack>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" onClick={handleSave}>
+    <div className="widget-modal-overlay widget-fade-in" onClick={onClose}>
+      <div className="widget-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="widget-modal-header">
+          設定
+          <button
+            className="widget-modal-close"
+            onClick={onClose}
+            aria-label="關閉"></button>
+        </div>
+
+        <div className="widget-modal-body">
+          <div className="widget-form-control">
+            <label className="widget-form-label">OpenAI API Key</label>
+            <input
+              className="widget-input"
+              type="password"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              placeholder="sk-..."
+            />
+          </div>
+
+          <div className="widget-form-control">
+            <label className="widget-form-label">選擇模型</label>
+            <select
+              className="widget-select"
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}>
+              {OPENAI_MODELS.map((model) => (
+                <option key={model.value} value={model.value}>
+                  {model.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="widget-modal-footer">
+          <button
+            className="widget-button widget-button-primary"
+            onClick={handleSave}>
             儲存
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

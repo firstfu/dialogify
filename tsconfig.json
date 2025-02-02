@@ -1,13 +1,20 @@
 {
   "extends": "plasmo/templates/tsconfig.base",
   "exclude": ["node_modules"],
-  "include": [".plasmo/index.d.ts", "./**/*.ts", "./**/*.tsx"],
+  "include": ["./**/*.ts", "./**/*.tsx", "src/types/svg.d.ts"],
   "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",
+    "jsx": "preserve",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
     "paths": {
       "~*": ["./src/*"]
     },
-    "baseUrl": ".",
-    "typeRoots": ["node_modules/@types", "node_modules/plasmo/types"],
-    "types": ["node", "chrome"]
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   }
 }

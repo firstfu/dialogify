@@ -1,0 +1,173 @@
+/* Modal 基礎樣式 */
+.widget-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget-modal {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 28rem;
+  position: relative;
+  animation: widget-modal-in 0.2s ease-out;
+}
+
+@keyframes widget-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Modal 各部分樣式 */
+.widget-modal-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.widget-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+}
+
+.widget-modal-close:hover {
+  background-color: #f7fafc;
+}
+
+.widget-modal-close::before,
+.widget-modal-close::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 1rem;
+  background-color: #4a5568;
+}
+
+.widget-modal-close::before {
+  transform: rotate(45deg);
+}
+
+.widget-modal-close::after {
+  transform: rotate(-45deg);
+}
+
+.widget-modal-body {
+  padding: 1rem;
+}
+
+.widget-modal-footer {
+  padding: 1rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 表單元素樣式 */
+.widget-form-control {
+  margin-bottom: 1rem;
+}
+
+.widget-form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+}
+
+.widget-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.widget-input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 1px #4299e1;
+}
+
+.widget-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  background-color: white;
+  transition: all 0.2s;
+}
+
+.widget-select:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 1px #4299e1;
+}
+
+/* 按鈕樣式 */
+.widget-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.widget-button-primary {
+  background-color: #4299e1;
+  color: white;
+}
+
+.widget-button-primary:hover {
+  background-color: #3182ce;
+}
+
+.widget-button-primary:active {
+  background-color: #2b6cb0;
+}
+
+/* 動畫 */
+.widget-fade-in {
+  animation: widget-fadeIn 0.2s ease-in;
+}
+
+@keyframes widget-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 通用樣式 */
+.widget-hidden {
+  display: none;
+}

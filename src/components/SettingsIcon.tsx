@@ -1,4 +1,3 @@
-import { IconButton } from "@chakra-ui/react"
 import { FiSettings } from "react-icons/fi"
 
 interface SettingsIconProps {
@@ -7,12 +6,11 @@ interface SettingsIconProps {
 
 export const SettingsIcon = ({ onClick }: SettingsIconProps) => {
   return (
-    <IconButton
-      aria-label="Settings"
-      icon={<FiSettings />}
-      variant="ghost"
-      size="sm"
-      onClick={onClick}
-    />
+    <button
+      className="widget-settings-button"
+      aria-label="設定"
+      onClick={onClick}>
+      <FiSettings size={20} />
+    </button>
   )
 }

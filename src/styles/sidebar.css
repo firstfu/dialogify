@@ -32,7 +32,7 @@
 }
 
 .widget-header__title {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
   color: #1f2937;
 }
@@ -165,11 +165,11 @@
 
 /* 文字相關類 */
 .widget-text-lg {
-  font-size: 1.125rem;
+  font-size: 18px;
 }
 
 .widget-text-sm {
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .widget-text-gray {

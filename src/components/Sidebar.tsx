@@ -53,8 +53,18 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   }, [])
 
   const transformDialogues = (
-    dialogues: Record<string, string>[]
+    dialogues: Record<string, string>[] | DialogMessage[]
   ): DialogMessage[] => {
+    // 檢查是否已經是 DialogMessage 格式
+    if (
+      dialogues.length > 0 &&
+      "role" in dialogues[0] &&
+      "content" in dialogues[0]
+    ) {
+      return dialogues as DialogMessage[]
+    }
+
+    // 如果是原始格式，則進行轉換
     return dialogues.map((dialog) => {
       const [role, content] = Object.entries(dialog)[0]
       return { role, content: content as string }

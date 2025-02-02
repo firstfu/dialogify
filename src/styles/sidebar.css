@@ -32,9 +32,25 @@
 }
 
 .widget-header__title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2563eb;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.widget-header__title:hover {
+  transform: translateY(-1px);
 }
 
 /* 主要內容區域 */

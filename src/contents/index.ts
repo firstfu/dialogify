@@ -22,12 +22,20 @@ function toggleSidebar() {
   }
 
   isOpen = !isOpen
+
+  if (!sidebarRoot) {
+    console.error("無法渲染側邊欄：sidebarRoot 為 null")
+    return
+  }
+
   sidebarRoot.render(
     React.createElement(Sidebar, {
       isOpen,
       onClose: () => {
         isOpen = false
-        sidebarRoot.render(React.createElement(Sidebar, { isOpen: false }))
+        if (sidebarRoot) {
+          sidebarRoot.render(React.createElement(Sidebar, { isOpen: false }))
+        }
       }
     })
   )
@@ -75,7 +83,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return true // 表示會異步發送回應
     } catch (error) {
       console.error("提取內容時發生錯誤:", error)
-      sendResponse({ error: `提取內容時發生錯誤: ${error.message}` })
+      const errorMessage = error instanceof Error ? error.message : "未知錯誤"
+      sendResponse({ error: `提取內容時發生錯誤: ${errorMessage}` })
       return
     }
   }

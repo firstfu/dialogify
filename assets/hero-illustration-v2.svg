@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景圓環 -->
+    <circle cx="200" cy="200" r="180" stroke="url(#gradient)" stroke-width="1" fill="none" opacity="0.1"/>
+
+    <!-- 左側對話氣泡 -->
+    <g transform="translate(-20,0)">
+        <path d="M120 140C120 128.954 128.954 120 140 120H220C231.046 120 240 128.954 240 140V180C240 191.046 231.046 200 220 200H160L140 220V200C128.954 200 120 191.046 120 180V140Z"
+              fill="url(#bubbleGradient1)"/>
+        <circle cx="155" cy="160" r="4" fill="white"/>
+        <circle cx="180" cy="160" r="4" fill="white"/>
+        <circle cx="205" cy="160" r="4" fill="white"/>
+    </g>
+
+    <!-- 右側對話氣泡 -->
+    <g transform="translate(20,60)">
+        <path d="M200 180C200 168.954 208.954 160 220 160H300C311.046 160 320 168.954 320 180V220C320 231.046 311.046 240 300 240H240L220 260V240C208.954 240 200 231.046 200 220V180Z"
+              fill="url(#bubbleGradient2)"/>
+        <circle cx="235" cy="200" r="4" fill="white"/>
+        <circle cx="260" cy="200" r="4" fill="white"/>
+        <circle cx="285" cy="200" r="4" fill="white"/>
+    </g>
+
+    <!-- 裝飾元素 -->
+    <circle cx="120" cy="300" r="8" fill="url(#gradient)" opacity="0.5"/>
+    <circle cx="280" cy="100" r="6" fill="url(#gradient)" opacity="0.5"/>
+    <circle cx="320" cy="280" r="4" fill="url(#gradient)" opacity="0.5"/>
+
+    <!-- 連接線 -->
+    <path d="M100 260Q200 220 300 320" stroke="url(#gradient)" stroke-width="1" opacity="0.2"/>
+    <path d="M80 180Q200 280 320 160" stroke="url(#gradient)" stroke-width="1" opacity="0.2"/>
+
+    <!-- 漸層定義 -->
+    <defs>
+        <linearGradient id="gradient" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#3B82F6"/>
+            <stop offset="100%" stop-color="#8B5CF6"/>
+        </linearGradient>
+        <linearGradient id="bubbleGradient1" x1="120" y1="120" x2="240" y2="220" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#3B82F6"/>
+            <stop offset="100%" stop-color="#4F46E5"/>
+        </linearGradient>
+        <linearGradient id="bubbleGradient2" x1="200" y1="160" x2="320" y2="260" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8B5CF6"/>
+            <stop offset="100%" stop-color="#6366F1"/>
+        </linearGradient>
+    </defs>
+</svg>

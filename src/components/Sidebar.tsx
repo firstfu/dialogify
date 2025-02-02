@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Storage } from "@plasmohq/storage"
 
 // @ts-ignore
-import heroIllustrationUrl from "../assets/hero-illustration.svg"
+import heroIllustrationUrl from "../../assets/hero-illustration-v2.svg"
 import { DialogView, type DialogMessage } from "./DialogView"
 import { Settings } from "./Settings"
 import { SettingsIcon } from "./SettingsIcon"
@@ -156,7 +156,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
             <div className="widget-flex widget-flex-col widget-flex-1 widget-items-center widget-justify-center widget-gap-4 widget-fade-in">
               <div className="widget-illustration-container">
                 <img
-                  src={heroIllustrationUrl}
+                  src={`${heroIllustrationUrl}?v=${Date.now()}`}
                   alt="Hero Illustration"
                   className="widget-illustration"
                 />

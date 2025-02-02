@@ -7,7 +7,8 @@
     "scripts": {
         "dev": "plasmo dev",
         "build": "plasmo build",
-        "package": "plasmo package"
+        "package": "plasmo package",
+        "convert-icons": "node scripts/convert-icon.js"
     },
     "dependencies": {
         "@plasmohq/messaging": "^0.6.2",
@@ -29,6 +30,7 @@
         "@types/react": "18.2.48",
         "@types/react-dom": "18.2.18",
         "prettier": "3.2.4",
+        "sharp": "^0.33.5",
         "typescript": "5.3.3"
     },
     "manifest": {
@@ -38,7 +40,6 @@
         "permissions": [
             "activeTab",
             "storage"
-        ],
-        "action": {}
+        ]
     }
 }

@@ -116,7 +116,6 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen = false, onClose }) => {
       }
 
       console.log("設置對話結果完成")
-      showToast("轉換成功", "success")
     } catch (error) {
       console.error("轉換過程錯誤:", error)
       showToast(

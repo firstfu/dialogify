@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景圓形 -->
+    <circle cx="64" cy="64" r="64" fill="#8B5CF6"/>
+
+    <!-- 文章到對話的轉換圖示 -->
+    <g transform="translate(20, 25)">
+        <!-- 文章圖示 -->
+        <rect x="8" y="16" width="32" height="48" rx="4" fill="white" opacity="0.9"/>
+        <rect x="14" y="24" width="20" height="2" rx="1" fill="#8B5CF6"/>
+        <rect x="14" y="30" width="16" height="2" rx="1" fill="#8B5CF6"/>
+        <rect x="14" y="36" width="20" height="2" rx="1" fill="#8B5CF6"/>
+
+        <!-- 轉換箭頭 -->
+        <path d="M44 40 L56 40 M52 36 L56 40 L52 44" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- 對話氣泡 -->
+        <path d="M60 16 H84 C86.2091 16 88 17.7909 88 20 V52 C88 54.2091 86.2091 56 84 56 H74 L70 64 L66 56 H60 C57.7909 56 56 54.2091 56 52 V20 C56 17.7909 57.7909 16 60 16 Z" fill="white" opacity="0.9"/>
+        <circle cx="66" cy="36" r="2" fill="#8B5CF6"/>
+        <circle cx="72" cy="36" r="2" fill="#8B5CF6"/>
+        <circle cx="78" cy="36" r="2" fill="#8B5CF6"/>
+    </g>
+</svg>

@@ -1,48 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- 背景圓環 -->
-    <circle cx="200" cy="200" r="180" stroke="url(#gradient)" stroke-width="1" fill="none" opacity="0.1"/>
+    <!-- 背景圖形 -->
+    <circle cx="200" cy="200" r="180" stroke="url(#gradient)" stroke-width="1" fill="none" opacity="0.05"/>
+    <circle cx="200" cy="200" r="150" stroke="url(#gradient)" stroke-width="1" fill="none" opacity="0.08"/>
 
-    <!-- 左側對話氣泡 -->
+    <!-- 動態背景線條 -->
+    <path d="M50 200C100 150 300 250 350 150" stroke="url(#gradient)" stroke-width="1" opacity="0.1"/>
+    <path d="M50 250C150 200 250 300 350 200" stroke="url(#gradient)" stroke-width="1" opacity="0.1"/>
+
+    <!-- 左側現代對話氣泡 -->
     <g transform="translate(-20,0)">
+        <!-- 氣泡陰影 -->
+        <path d="M118 142C118 130.954 126.954 122 138 122H218C229.046 122 238 130.954 238 142V182C238 193.046 229.046 202 218 202H158L138 222V202C126.954 202 118 193.046 118 182V142Z"
+              fill="url(#bubbleShadow)" opacity="0.2"/>
+        <!-- 主要氣泡 -->
         <path d="M120 140C120 128.954 128.954 120 140 120H220C231.046 120 240 128.954 240 140V180C240 191.046 231.046 200 220 200H160L140 220V200C128.954 200 120 191.046 120 180V140Z"
               fill="url(#bubbleGradient1)"/>
-        <circle cx="155" cy="160" r="4" fill="white"/>
-        <circle cx="180" cy="160" r="4" fill="white"/>
-        <circle cx="205" cy="160" r="4" fill="white"/>
+        <!-- 現代化裝飾點 -->
+        <circle cx="155" cy="160" r="3" fill="white"/>
+        <circle cx="180" cy="160" r="3" fill="white"/>
+        <circle cx="205" cy="160" r="3" fill="white"/>
+        <!-- 光暈效果 -->
+        <circle cx="155" cy="160" r="5" fill="white" opacity="0.2"/>
+        <circle cx="180" cy="160" r="5" fill="white" opacity="0.2"/>
+        <circle cx="205" cy="160" r="5" fill="white" opacity="0.2"/>
     </g>
 
-    <!-- 右側對話氣泡 -->
+    <!-- 右側現代對話氣泡 -->
     <g transform="translate(20,60)">
+        <!-- 氣泡陰影 -->
+        <path d="M198 182C198 170.954 206.954 162 218 162H298C309.046 162 318 170.954 318 182V222C318 233.046 309.046 242 298 242H238L218 262V242C206.954 242 198 233.046 198 222V182Z"
+              fill="url(#bubbleShadow)" opacity="0.2"/>
+        <!-- 主要氣泡 -->
         <path d="M200 180C200 168.954 208.954 160 220 160H300C311.046 160 320 168.954 320 180V220C320 231.046 311.046 240 300 240H240L220 260V240C208.954 240 200 231.046 200 220V180Z"
               fill="url(#bubbleGradient2)"/>
-        <circle cx="235" cy="200" r="4" fill="white"/>
-        <circle cx="260" cy="200" r="4" fill="white"/>
-        <circle cx="285" cy="200" r="4" fill="white"/>
+        <!-- 現代化裝飾點 -->
+        <circle cx="235" cy="200" r="3" fill="white"/>
+        <circle cx="260" cy="200" r="3" fill="white"/>
+        <circle cx="285" cy="200" r="3" fill="white"/>
+        <!-- 光暈效果 -->
+        <circle cx="235" cy="200" r="5" fill="white" opacity="0.2"/>
+        <circle cx="260" cy="200" r="5" fill="white" opacity="0.2"/>
+        <circle cx="285" cy="200" r="5" fill="white" opacity="0.2"/>
     </g>
 
-    <!-- 裝飾元素 -->
-    <circle cx="120" cy="300" r="8" fill="url(#gradient)" opacity="0.5"/>
-    <circle cx="280" cy="100" r="6" fill="url(#gradient)" opacity="0.5"/>
-    <circle cx="320" cy="280" r="4" fill="url(#gradient)" opacity="0.5"/>
+    <!-- 現代化裝飾元素 -->
+    <g class="decorative-elements">
+        <!-- 大圓點 -->
+        <circle cx="120" cy="300" r="6" fill="url(#gradient)" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;0.3;0.6" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="280" cy="100" r="4" fill="url(#gradient)" opacity="0.5">
+            <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="320" cy="280" r="3" fill="url(#gradient)" opacity="0.4">
+            <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" repeatCount="indefinite"/>
+        </circle>
 
-    <!-- 連接線 -->
-    <path d="M100 260Q200 220 300 320" stroke="url(#gradient)" stroke-width="1" opacity="0.2"/>
-    <path d="M80 180Q200 280 320 160" stroke="url(#gradient)" stroke-width="1" opacity="0.2"/>
+        <!-- 幾何裝飾 -->
+        <path d="M90 120L110 140M90 140L110 120" stroke="url(#gradient)" stroke-width="2" opacity="0.2"/>
+        <path d="M290 320L310 340M290 340L310 320" stroke="url(#gradient)" stroke-width="2" opacity="0.2"/>
+    </g>
 
     <!-- 漸層定義 -->
     <defs>
+        <!-- 主漸層 -->
         <linearGradient id="gradient" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#3B82F6"/>
+            <stop offset="0%" stop-color="#4F46E5"/>
+            <stop offset="100%" stop-color="#7C3AED"/>
+        </linearGradient>
+
+        <!-- 氣泡漸層 1 -->
+        <linearGradient id="bubbleGradient1" x1="120" y1="120" x2="240" y2="220" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4F46E5"/>
+            <stop offset="100%" stop-color="#6366F1"/>
+        </linearGradient>
+
+        <!-- 氣泡漸層 2 -->
+        <linearGradient id="bubbleGradient2" x1="200" y1="160" x2="320" y2="260" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7C3AED"/>
             <stop offset="100%" stop-color="#8B5CF6"/>
         </linearGradient>
-        <linearGradient id="bubbleGradient1" x1="120" y1="120" x2="240" y2="220" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#3B82F6"/>
-            <stop offset="100%" stop-color="#4F46E5"/>
-        </linearGradient>
-        <linearGradient id="bubbleGradient2" x1="200" y1="160" x2="320" y2="260" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#8B5CF6"/>
-            <stop offset="100%" stop-color="#6366F1"/>
+
+        <!-- 陰影漸層 -->
+        <linearGradient id="bubbleShadow" x1="200" y1="0" x2="200" y2="400" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#000000"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
         </linearGradient>
     </defs>
 </svg>

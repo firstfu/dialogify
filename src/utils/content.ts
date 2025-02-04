@@ -5,7 +5,7 @@ export const extractMainContent = (document: Document): string => {
     // 克隆 document 以避免修改原始頁面
     const docClone = document.cloneNode(true) as Document
 
-    // 在克隆的文檔上進行操作
+    // 在克隆的文檔上進行操作，但保留 pre 和 code 元素
     const elementsToRemove = docClone.querySelectorAll(
       "script, style, header, footer, nav, aside, iframe, .ad, .advertisement, .social-share"
     )
@@ -24,7 +24,6 @@ export const extractMainContent = (document: Document): string => {
       "#content",
       "#main",
       ".main",
-      // 增加更多常見的內容選擇器
       ".article",
       ".post",
       "#article",
@@ -64,10 +63,26 @@ export const extractMainContent = (document: Document): string => {
       mainContent = docClone.body
     }
 
-    // 提取純文字內容
+    // 處理圖片
+    const images = mainContent.querySelectorAll("img")
+    images.forEach((img) => {
+      const alt = img.getAttribute("alt") || "圖片"
+      const src = img.getAttribute("src") || ""
+      const markdown = `\n![${alt}](${src})\n`
+      img.replaceWith(docClone.createTextNode(markdown))
+    })
+
+    // 處理程式碼區塊
+    const codeBlocks = mainContent.querySelectorAll("pre, code")
+    codeBlocks.forEach((block) => {
+      const language = block.className.match(/language-(\w+)/)?.[1] || ""
+      const code = block.textContent || ""
+      const markdown = `\n\`\`\`${language}\n${code}\n\`\`\`\n`
+      block.replaceWith(docClone.createTextNode(markdown))
+    })
+
+    // 提取內容
     const textContent = mainContent.textContent || ""
-    console.log("提取的原始內容長度:", textContent.length)
-    console.log("提取的原始內容片段:", textContent.slice(0, 200) + "...")
 
     // 如果內容為空，拋出錯誤
     if (!textContent.trim()) {
@@ -77,7 +92,18 @@ export const extractMainContent = (document: Document): string => {
     // 清理文字內容
     const cleanedText = cleanText(textContent)
     console.log("清理後的內容長度:", cleanedText.length)
-    console.log("清理後的內容片段:", cleanedText.slice(0, 200) + "...")
+
+    // 驗證內容
+    if (!isValidContent(cleanedText)) {
+      console.log("內容驗證失敗，原始內容片段:", cleanedText.slice(0, 200))
+      throw new Error("提取的內容未通過驗證")
+    }
+
+    // 只在 console.log 中截斷內容，實際返回完整內容
+    console.log(
+      "清理後的內容片段(僅供預覽):",
+      cleanedText.slice(0, 200) + "..."
+    )
 
     return cleanedText
   } catch (error) {
@@ -88,9 +114,9 @@ export const extractMainContent = (document: Document): string => {
 
 const cleanText = (text: string): string => {
   return text
-    .replace(/\s+/g, " ") // 將多個空白字符替換為單個空格
-    .replace(/\n+/g, "\n") // 將多個換行符替換為單個換行符
-    .replace(/\t+/g, " ") // 將 tab 替換為空格
+    .replace(/\s*\n\s*/g, "\n") // 保留單個換行符，移除換行符周圍的空白
+    .replace(/\n{3,}/g, "\n\n") // 將連續3個以上換行符替換為2個
+    .replace(/[ \t]+/g, " ") // 將連續空格和tab替換為單個空格
     .trim() // 移除首尾空白
 }
 
@@ -100,17 +126,28 @@ export const isValidContent = (content: string): boolean => {
     return false
   }
 
-  const minLength = 100 // 最小字數限制
-  const maxLength = 10000 // 最大字數限制
+  const minLength = 50 // 降低最小字數限制
+  const maxLength = 50000 // 提高最大字數限制
   const cleanedContent = content.trim()
+  const contentLength = cleanedContent.length
 
-  console.log("驗證內容長度:", cleanedContent.length)
-  console.log(
-    "內容是否有效:",
-    cleanedContent.length >= minLength && cleanedContent.length <= maxLength
-  )
+  // 增加更詳細的日誌
+  console.log({
+    contentLength,
+    minLength,
+    maxLength,
+    tooShort: contentLength < minLength,
+    tooLong: contentLength > maxLength,
+    sampleContent: cleanedContent.slice(0, 100) + "..."
+  })
 
-  return (
-    cleanedContent.length >= minLength && cleanedContent.length <= maxLength
-  )
+  const isValid = contentLength >= minLength && contentLength <= maxLength
+
+  if (!isValid) {
+    console.log(
+      `內容長度驗證失敗: ${contentLength} 字元 (需介於 ${minLength}-${maxLength} 字元之間)`
+    )
+  }
+
+  return isValid
 }

@@ -1,82 +1,117 @@
-import { useState } from "react"
+import React, { Component, useMemo } from "react"
 import ReactMarkdown from "react-markdown"
+import rehypeHighlight from "rehype-highlight"
+import rehypeRaw from "rehype-raw"
+import remarkGfm from "remark-gfm"
 
-// 角色類名映射
-const roleClassNames = {
-  教授: "widget-role-professor",
-  學生: "widget-role-student",
-  記者: "widget-role-reporter",
-  專家: "widget-role-expert",
-  default: "widget-role-default"
+import "highlight.js/styles/github-dark.css"
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean
+}
+
+// 錯誤邊界組件
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    console.error("Markdown rendering error:", error, errorInfo)
+  }
+
+  render(): React.ReactNode {
+    if (this.state.hasError) {
+      return <div className="markdown-error">內容無法正確顯示</div>
+    }
+
+    return this.props.children
+  }
+}
+
+// Markdown 渲染組件
+const MarkdownRenderer: React.FC<{ content: string }> = ({ content }) => {
+  if (!content) return null
+
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeRaw, rehypeHighlight]}>
+      {content}
+    </ReactMarkdown>
+  )
 }
 
 interface MessageBubbleProps {
   role: string
   content: string
   index: number
+  roles?: string[]
 }
 
-export const MessageBubble = ({ role, content, index }: MessageBubbleProps) => {
-  const [showCopiedTooltip, setShowCopiedTooltip] = useState(false)
+// 根據角色名稱生成顏色
+const generateRoleColor = (
+  role: string,
+  index: number,
+  totalRoles: number
+): string => {
+  if (!role) return "hsl(0, 0%, 95%)" // 預設顏色
 
-  // 根據角色取得類名
-  const getRoleClassName = (role: string) => {
-    if (!role) return roleClassNames.default
-    const normalizedRole = Object.keys(roleClassNames).find((key) =>
-      role.toLowerCase().includes(key.toLowerCase())
+  // 根據角色在 roles 陣列中的位置生成顏色
+  const hue = (360 / totalRoles) * index
+  return `hsl(${hue}, 70%, 95%)`
+}
+
+export const MessageBubble: React.FC<MessageBubbleProps> = ({
+  role,
+  content = "",
+  index,
+  roles = []
+}) => {
+  // 使用 useMemo 緩存樣式計算
+  const bubbleStyle = useMemo(() => {
+    // 找出當前角色在 roles 陣列中的索引
+    const roleIndex = roles.indexOf(role)
+    const color = generateRoleColor(
+      role,
+      roleIndex >= 0 ? roleIndex : 0,
+      roles.length || 1
     )
-    return roleClassNames[normalizedRole] || roleClassNames.default
-  }
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setShowCopiedTooltip(true)
-      setTimeout(() => setShowCopiedTooltip(false), 2000)
-    } catch (err) {
-      console.error("複製失敗:", err)
+    return {
+      "--animation-delay": `${index * 0.1}s`,
+      "--role-color": color
     }
-  }
+  }, [role, index, roles])
+
+  // 確保內容是字串且不為空
+  const safeContent = typeof content === "string" ? content.trim() : ""
 
   return (
     <div
       className="widget-message-bubble"
-      style={{
-        // 為每個消息添加延遲動畫
-        animationDelay: `${index * 0.1}s`
-      }}>
-      <div className={`widget-message-bubble-inner ${getRoleClassName(role)}`}>
-        {/* 角色名稱 */}
+      style={bubbleStyle as React.CSSProperties}>
+      <div className="widget-message-bubble-inner">
         <div className="widget-message-header">
-          <span className={`widget-message-role ${getRoleClassName(role)}`}>
-            {role}
-          </span>
+          <span className="widget-message-role">{role}</span>
         </div>
-
-        {/* 對話內容 */}
         <div className="widget-message-content">
-          <div className="widget-markdown-content">
-            <ReactMarkdown>{content}</ReactMarkdown>
-          </div>
-
-          {/* 複製按鈕 */}
-          <button
-            className="widget-icon-button widget-message-copy widget-tooltip"
-            onClick={handleCopy}
-            data-tooltip={showCopiedTooltip ? "已複製！" : "複製內容"}
-            aria-label="複製內容">
-            <svg
-              className="widget-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-            </svg>
-          </button>
+          <ErrorBoundary>
+            {safeContent ? (
+              <MarkdownRenderer content={safeContent} />
+            ) : (
+              <div className="empty-content"></div>
+            )}
+          </ErrorBoundary>
         </div>
       </div>
     </div>
